@@ -13,7 +13,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 BASE_MODEL = "Qwen/Qwen2.5-3B-Instruct"
 ADAPTER_DIR = Path(__file__).parent / "adapter_extracted"
 CONTEXT_CACHE = Path(__file__).parent.parent.parent / "eval" / "context_cache.json"
-RESULTS_PATH = Path(__file__).parent / "eval_results.md"
+RESULTS_MD_PATH = Path(__file__).parent / "eval_results.md"
+RESULTS_JSON_PATH = Path(__file__).parent.parent.parent / "eval" / "eval_answers.json"
 
 SYSTEM_PROMPT = (
     "You are a board game rules assistant. Answer the user's question using only "
@@ -69,7 +70,7 @@ def main() -> None:
         r["tuned_answer"] = generate(tuned_model, tokenizer, prompt)
         print(f"  [{r['game']}] {r['question'][:50]}...")
 
-    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
+    with open(RESULTS_MD_PATH, "w", encoding="utf-8") as f:
         f.write("# Fine-tune Evaluation: Base vs LoRA-tuned Qwen2.5-3B-Instruct\n\n")
         for r in results:
             f.write(f"## [{r['game']}] {r['question']}\n\n")
@@ -77,7 +78,11 @@ def main() -> None:
             f.write(f"**Fine-tuned model:**\n{r['tuned_answer']}\n\n")
             f.write("---\n\n")
 
-    print(f"Wrote comparison to {RESULTS_PATH}")
+    with open(RESULTS_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"Wrote comparison to {RESULTS_MD_PATH}")
+    print(f"Wrote structured results to {RESULTS_JSON_PATH}")
 
 
 if __name__ == "__main__":

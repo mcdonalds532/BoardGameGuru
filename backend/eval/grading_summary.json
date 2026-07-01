@@ -1,0 +1,7 @@
+{
+  "total": 20,
+  "base_correct": 10,
+  "tuned_correct": 13,
+  "base_accuracy": 0.5,
+  "tuned_accuracy": 0.65
+}

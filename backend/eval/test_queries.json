@@ -8,5 +8,15 @@
   {"question": "How many disease cubes can be on a single city at once?", "game": "Pandemic"},
   {"question": "What triggers a chain reaction outbreak?", "game": "Pandemic"},
   {"question": "How many points do I lose if I fail to complete a Destination Ticket?", "game": "Ticket To Ride"},
-  {"question": "What happens when a player has only 2 trains left at the end of their turn?", "game": "Ticket To Ride"}
+  {"question": "What happens when a player has only 2 trains left at the end of their turn?", "game": "Ticket To Ride"},
+  {"question": "What does the Monopoly development card do?", "game": "Catan"},
+  {"question": "How do I get the Largest Army card?", "game": "Catan"},
+  {"question": "Can a follower be placed on a river tile?", "game": "Carcassonne"},
+  {"question": "How do farms get scored during the game, before the game ends?", "game": "Carcassonne"},
+  {"question": "Can I use a proper name like a person's name as a clue?", "game": "Codenames"},
+  {"question": "What happens if a spymaster gives an invalid clue?", "game": "Codenames"},
+  {"question": "What does the Medic do differently when treating a disease compared to other roles?", "game": "Pandemic"},
+  {"question": "How many City cards do I need to discard to cure a disease?", "game": "Pandemic"},
+  {"question": "How many points do I score for claiming a route of length 1?", "game": "Ticket To Ride"},
+  {"question": "Can I use any type of Train Car card to claim a Grey route?", "game": "Ticket To Ride"}
 ]

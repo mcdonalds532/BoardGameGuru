@@ -17,6 +17,8 @@ frontend/out/
 backend/documents/*.pdf
 backend/pipeline/finetune/qa_pairs.jsonl
 backend/eval/context_cache.json
+backend/eval/eval_answers.json
+backend/eval/grading_results.json
 
 # Downloaded model weights / local eval env
 backend/pipeline/finetune/adapter/

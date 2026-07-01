@@ -100,3 +100,103 @@ The game ends and players calculate their final scores.
 
 ---
 
+## [Catan] What does the Monopoly development card do?
+
+**Base model:**
+The Monopoly development card allows the player who plays it to name one type of resource. Other players must then give all of their resource cards of that type to the player who played the card. If there aren't enough resource cards in the supply to satisfy everyone's demand for that resource, no player receives any of that resource that turn.
+
+**Fine-tuned model:**
+It forces the other players to give you all of the resource cards of the type you name.
+
+---
+
+## [Catan] How do I get the Largest Army card?
+
+**Base model:**
+To acquire the Largest Army card, you need to have 3 knight cards in front of yourself. When a player with more knight cards than the current holder of the Largest Army card takes the card, they immediately receive the Largest Army card and gain 2 victory points.
+
+**Fine-tuned model:**
+The largest army card is acquired by having the most knight cards in front of yourself.
+
+---
+
+## [Carcassonne] Can a follower be placed on a river tile?
+
+**Base model:**
+Based on the provided rulebook excerpts, there is no mention of river tiles or how followers can be placed on them. Therefore, I cannot determine if a follower can be placed on a river tile from the given information.
+
+**Fine-tuned model:**
+No, a follower cannot be placed on a river tile. A river tile is not a field, city, or road segment.
+
+---
+
+## [Carcassonne] How do farms get scored during the game, before the game ends?
+
+**Base model:**
+Based on the provided rulebook excerpt, farms are not scored during the game itself; they are scored at the end of the game when all features are completed. The scoring rules for farms are detailed on page 4 under FARMER SCORING, but the actual scoring takes place after the game concludes. During the game, players place farmers on the farms as they become available, but the points for these farms are determined based on which player has the most farmers in each farm that supplies completed cities at the end of the game.
+
+**Fine-tuned model:**
+Farms are scored at the end of the game. Farms are scored based on the number of completed cities they supply. Farms are separated from each other by roads, cities, and the edge of the map. Farms are scored by the player who controls them.
+
+---
+
+## [Codenames] Can I use a proper name like a person's name as a clue?
+
+**Base model:**
+Yes, according to the rulebook, proper names are always valid clues if they follow the other rules. However, you might want to specify whether you mean a specific individual (e.g., George Washington) or a title (e.g., The Three Musketeers).
+
+**Fine-tuned model:**
+Yes, proper names are always valid clues if they follow the other rules.
+
+---
+
+## [Codenames] What happens if a spymaster gives an invalid clue?
+
+**Base model:**
+If a spymaster gives an invalid clue, the team's turn ends immediately. Additionally, the other team's spymaster may cover one of his or her words with an agent card before giving the next clue.
+
+**Fine-tuned model:**
+The team's turn ends immediately. The other team's spymaster may cover one of his or her words with an agent card before giving the next clue.
+
+---
+
+## [Pandemic] What does the Medic do differently when treating a disease compared to other roles?
+
+**Base model:**
+When treating a disease, the Medic removes all cubes, not just one, of the same color from the board. This action is specified in the rule excerpt for the MEDIC role in Pandemic. No other differences are mentioned in the provided excerpts regarding how the Medic treats diseases compared to other roles.
+
+**Fine-tuned model:**
+The Medic removes all cubes, not just one, of the same color when doing the Treat Disease action.
+
+---
+
+## [Pandemic] How many City cards do I need to discard to cure a disease?
+
+**Base model:**
+According to the rule excerpt provided, to cure a disease, you need to discard 5 City cards of the same color from your hand.
+
+**Fine-tuned model:**
+5 City cards of the same color
+
+---
+
+## [Ticket To Ride] How many points do I score for claiming a route of length 1?
+
+**Base model:**
+The information provided does not specify the point value for claiming a route of any particular length. It only describes how to claim routes and what happens when a route is claimed, but it does not mention scoring or point values associated with different route lengths.
+
+**Fine-tuned model:**
+The excerpt does not provide information about scoring for claiming a route of length 1.
+
+---
+
+## [Ticket To Ride] Can I use any type of Train Car card to claim a Grey route?
+
+**Base model:**
+No, according to the rulebook excerpt, for routes that are Gray colored, a player must use a set of cards of any one color, not specifically any type of Train Car card. The key point is that it requires a set of cards of any one color, not necessarily Train Car cards.
+
+**Fine-tuned model:**
+Yes, a player may use any type of Train Car card to claim a Grey route.
+
+---
+

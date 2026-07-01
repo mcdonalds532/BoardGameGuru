@@ -5,6 +5,9 @@ A RAG-based chatbot that answers natural-language questions about board game rul
 ## Stack
 Python, FastAPI, OpenAI API (embeddings), Together AI (serverless Qwen2.5-7B-Instruct for live generation; LoRA fine-tuned Qwen2.5-3B-Instruct evaluated locally), Pinecone, Next.js, Tailwind CSS
 
+## Fine-Tuning Results
+LoRA fine-tuned Qwen2.5-3B-Instruct on 76 synthetic QA pairs generated from the rulebooks. On a 20-question held-out eval, graded by an LLM judge: **65% correct fine-tuned vs 50% correct base model** (same retrieved context, same judge). See `backend/eval/grading_summary.json` and `backend/pipeline/finetune/eval_results.md` for details, including methodology caveats.
+
 ## Local Development
 
 ### Backend
