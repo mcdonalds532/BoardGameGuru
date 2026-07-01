@@ -32,7 +32,7 @@ Catan, Ticket to Ride, Pandemic, Carcassonne, Codenames
 
 ## Status
 - [x] Phase 1: repo scaffolded (backend FastAPI skeleton, frontend Next.js+Tailwind init)
-- [ ] Phase 2: data pipeline
+- [x] Phase 2: data pipeline (pdfplumber ingest, token-based chunker, OpenAI embeddings → Pinecone; 134 chunks across 5 games, retrieval sanity-checked)
 - [ ] Phase 3: fine-tuning
 - [ ] Phase 4: backend RAG logic
 - [ ] Phase 5: frontend UI
