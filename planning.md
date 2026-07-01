@@ -45,11 +45,11 @@ Catan, Ticket to Ride, Pandemic, Carcassonne, Codenames
 ## Status
 - [x] Phase 1: repo scaffolded (backend FastAPI skeleton, frontend Next.js+Tailwind init)
 - [x] Phase 2: data pipeline (pdfplumber ingest, token-based chunker, OpenAI embeddings → Pinecone; 134 chunks across 5 games, retrieval sanity-checked)
-- [~] Phase 3: fine-tuning — 76 QA pairs generated + manually reviewed (4 bad ones from garbled PDF pages removed). LoRA job submitted to Together AI (job ft-8e0c91f5-5597, base model Qwen/Qwen2.5-3B-Instruct, ~$4 cost). Waiting on completion — check with `python -m pipeline.finetune.check_status ft-8e0c91f5-5597`, then download with `python -m pipeline.finetune.download_adapter ft-8e0c91f5-5597` for local eval (see Stack note on why this isn't served live).
+- [~] Phase 3: fine-tuning — 76 QA pairs generated + manually reviewed (4 bad ones from garbled PDF pages removed). LoRA job (ft-8e0c91f5-5597, base model Qwen/Qwen2.5-3B-Instruct, ~$4) completed and the adapter downloaded to `backend/pipeline/finetune/adapter/` (437MB, gitignored). Output model name: `sli0433722618_7522/Qwen2.5-3B-Instruct-boardgameguru-ab5b939a`. Remaining: local before/after eval comparing the adapter against the base model (not yet done).
 - [x] Phase 4: backend RAG logic — retriever/generator/query endpoint tested end-to-end via real HTTP requests against live Pinecone + Together. `top_k` bumped from 5→10 after finding a relevant chunk ranked 14th for one test query (known limitation: no reranking, occasional cross-game bleed-through when no `game` filter is passed, some source PDFs have mojibake from font-encoding issues — worth mentioning in Phase 7 docs, not blocking).
-- [ ] Phase 5: frontend UI
+- [x] Phase 5: frontend UI — ChatWindow (game-filter badges + input), MessageBubble, SourceCard, GameBadge components; `/api/chat` Next.js route proxies to the FastAPI backend (keeps `BACKEND_URL` server-side, avoids CORS). No shadcn/ui installed — hand-built with Tailwind to keep scope reasonable. Verified in an actual headless browser (Playwright) end-to-end: typed a question, got a grounded answer, confirmed no console errors. Capped displayed source cards to 4 (retrieval still uses top_k=10 for the LLM, but showing all 10 as cards was a real UX problem caught only by actually looking at the screenshot).
 - [ ] Phase 6: deployment
-- [ ] Phase 7: eval + docs
+- [ ] Phase 7: eval + docs (should include the fine-tuned-vs-base local comparison from Phase 3)
 
 ## Manual steps (require user action)
 - Create OpenAI API key → set in backend/.env
