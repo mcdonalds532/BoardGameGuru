@@ -1,0 +1,38 @@
+# BoardGameGuru — Planning
+
+RAG chatbot answering natural-language questions about board game rules. Resume project targeting SWE internships, demonstrating semantic search, embeddings, RAG, and fine-tuning.
+
+## Stack
+- Backend: FastAPI (Python)
+- Embeddings: OpenAI text-embedding-3-small
+- Vector DB: Pinecone (free tier)
+- LLM: OpenAI GPT-4o-mini (fine-tuned)
+- Frontend: Next.js + Tailwind CSS + shadcn/ui
+- Deployment: Railway (backend) + Vercel (frontend)
+
+## Games (initial 5)
+Catan, Ticket to Ride, Pandemic, Carcassonne, Codenames
+
+## Roadmap
+1. Setup — repo, venv, Next.js init, API accounts
+2. Data pipeline — ingest, chunk, embed → Pinecone
+3. Fine-tuning — generate QA pairs, submit job (async)
+4. Backend — retriever, generator, /query endpoint
+5. Frontend — ChatWindow, MessageBubble, SourceCard
+6. Deployment — Railway + Vercel
+7. Eval + docs — test queries, README
+
+## Status
+- [x] Phase 1: repo scaffolded (backend FastAPI skeleton, frontend Next.js+Tailwind init)
+- [ ] Phase 2: data pipeline
+- [ ] Phase 3: fine-tuning
+- [ ] Phase 4: backend RAG logic
+- [ ] Phase 5: frontend UI
+- [ ] Phase 6: deployment
+- [ ] Phase 7: eval + docs
+
+## Manual steps (require user action)
+- Create OpenAI API key → set in backend/.env
+- Create Pinecone account + API key → set in backend/.env
+- Add 5 rulebook PDFs to backend/documents/
+- Create Railway + Vercel accounts for deployment (Phase 6)

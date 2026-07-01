@@ -1,0 +1,17 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+.env
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Editor / OS
+.DS_Store
+.claude/settings.local.json
+
+# Data
+backend/documents/*.pdf
