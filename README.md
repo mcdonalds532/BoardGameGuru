@@ -3,7 +3,7 @@
 A RAG-based chatbot that answers natural-language questions about board game rules, grounded in official rulebook text with source citations.
 
 ## Stack
-Python, FastAPI, OpenAI API (embeddings), Together AI (LoRA fine-tuned Llama-3.2-3B-Instruct), Pinecone, Next.js, Tailwind CSS
+Python, FastAPI, OpenAI API (embeddings), Together AI (serverless Qwen2.5-7B-Instruct for live generation; LoRA fine-tuned Qwen2.5-3B-Instruct evaluated locally), Pinecone, Next.js, Tailwind CSS
 
 ## Local Development
 
@@ -21,7 +21,19 @@ uvicorn app.main:app --reload
 ```
 cd frontend
 npm install
+cp .env.local.example .env.local  # points BACKEND_URL at the local backend
 npm run dev
+```
+
+### Fine-tune evaluation (optional, local only)
+Comparing the LoRA adapter against the base model requires PyTorch/transformers/peft,
+which the deployed backend never needs — kept in a separate venv:
+```
+cd backend/pipeline/finetune
+py -3.11 -m venv eval_venv
+source eval_venv/Scripts/activate
+pip install -r eval-requirements.txt
+python eval_adapter.py  # writes eval_results.md
 ```
 
 ## Project Structure

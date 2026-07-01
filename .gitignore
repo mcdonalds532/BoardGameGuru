@@ -16,6 +16,9 @@ frontend/out/
 # Data (contains verbatim excerpts from copyrighted rulebooks)
 backend/documents/*.pdf
 backend/pipeline/finetune/qa_pairs.jsonl
+backend/eval/context_cache.json
 
-# Downloaded model weights
+# Downloaded model weights / local eval env
 backend/pipeline/finetune/adapter/
+backend/pipeline/finetune/adapter_extracted/
+backend/pipeline/finetune/eval_venv/
