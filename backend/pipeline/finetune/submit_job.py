@@ -1,10 +1,14 @@
 """Uploads qa_pairs.jsonl and submits a LoRA fine-tuning job to Together AI."""
 
+from pathlib import Path
+
 from together import Together
 
 from app.config import settings
 
 _together = Together(api_key=settings.together_api_key)
+
+QA_PAIRS_PATH = Path(__file__).parent / "qa_pairs.jsonl"
 
 
 def submit_finetune_job(qa_pairs_path: str, suffix: str = "boardgameguru") -> str:
@@ -21,4 +25,6 @@ def submit_finetune_job(qa_pairs_path: str, suffix: str = "boardgameguru") -> st
 
 
 if __name__ == "__main__":
-    pass
+    job_id = submit_finetune_job(str(QA_PAIRS_PATH))
+    print(f"Submitted fine-tune job: {job_id}")
+    print(f"Check status with: python -m pipeline.finetune.check_status {job_id}")

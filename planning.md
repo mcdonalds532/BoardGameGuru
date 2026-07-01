@@ -33,8 +33,8 @@ Catan, Ticket to Ride, Pandemic, Carcassonne, Codenames
 ## Status
 - [x] Phase 1: repo scaffolded (backend FastAPI skeleton, frontend Next.js+Tailwind init)
 - [x] Phase 2: data pipeline (pdfplumber ingest, token-based chunker, OpenAI embeddings → Pinecone; 134 chunks across 5 games, retrieval sanity-checked)
-- [ ] Phase 3: fine-tuning
-- [ ] Phase 4: backend RAG logic
+- [~] Phase 3: fine-tuning — 76 QA pairs generated + manually reviewed (4 bad ones from garbled PDF pages removed), LoRA job submitted to Together AI (job ft-5ab5e8bd-f6a6, base model meta-llama/Llama-3.2-3B-Instruct). Waiting on completion — check with `python -m pipeline.finetune.check_status <job_id>`, then set `FINETUNED_GENERATION_MODEL` in backend/.env to the output model name.
+- [ ] Phase 4: backend RAG logic (retriever.py/generator.py/query endpoint already scaffolded in Phase 1 — needs end-to-end testing once fine-tune completes)
 - [ ] Phase 5: frontend UI
 - [ ] Phase 6: deployment
 - [ ] Phase 7: eval + docs

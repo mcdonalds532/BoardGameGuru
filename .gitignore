@@ -13,5 +13,6 @@ frontend/out/
 .DS_Store
 .claude/settings.local.json
 
-# Data
+# Data (contains verbatim excerpts from copyrighted rulebooks)
 backend/documents/*.pdf
+backend/pipeline/finetune/qa_pairs.jsonl

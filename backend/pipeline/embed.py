@@ -58,7 +58,7 @@ def _game_name_from_filename(pdf_path: Path) -> str:
     return pdf_path.stem.replace("_", " ").title()
 
 
-def run_pipeline() -> None:
+def collect_all_chunks() -> list[dict]:
     from pipeline.chunk import chunk_text
     from pipeline.ingest import extract_text
 
@@ -72,6 +72,11 @@ def run_pipeline() -> None:
         all_chunks.extend(chunks)
         print(f"{pdf_path.name}: {len(chunks)} chunks")
 
+    return all_chunks
+
+
+def run_pipeline() -> None:
+    all_chunks = collect_all_chunks()
     embed_and_upsert(all_chunks)
     print(f"Upserted {len(all_chunks)} chunks into Pinecone index '{settings.pinecone_index_name}'")
 
