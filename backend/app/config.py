@@ -6,9 +6,11 @@ class Settings(BaseSettings):
 
     openai_api_key: str
     pinecone_api_key: str
+    together_api_key: str
     pinecone_index_name: str = "boardgameguru"
     embedding_model: str = "text-embedding-3-small"
-    generation_model: str = "gpt-4o-mini"
+    base_generation_model: str = "meta-llama/Llama-3.2-3B-Instruct"
+    finetuned_generation_model: str | None = None
     cors_origins: list[str] = ["http://localhost:3000"]
 
 

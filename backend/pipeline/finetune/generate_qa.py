@@ -1,4 +1,4 @@
-"""Generates synthetic QA pairs from rulebook chunks using GPT-4o-mini."""
+"""Generates synthetic QA pairs from rulebook chunks using an OpenAI chat model."""
 
 
 def generate_qa_pairs(chunks: list[dict]) -> list[dict]:

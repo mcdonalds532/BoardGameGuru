@@ -1,10 +1,10 @@
-"""Generates a grounded answer from retrieved rulebook chunks."""
+"""Generates a grounded answer from retrieved rulebook chunks via Together AI."""
 
-from openai import OpenAI
+from together import Together
 
 from app.config import settings
 
-_openai = OpenAI(api_key=settings.openai_api_key)
+_together = Together(api_key=settings.together_api_key)
 
 SYSTEM_PROMPT = (
     "You are a board game rules assistant. Answer the user's question using only "
@@ -20,8 +20,9 @@ def generate_answer(query: str, chunks: list[dict]) -> str:
         {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {query}"},
     ]
 
-    response = _openai.chat.completions.create(
-        model=settings.generation_model,
+    model = settings.finetuned_generation_model or settings.base_generation_model
+    response = _together.chat.completions.create(
+        model=model,
         messages=messages,
     )
     return response.choices[0].message.content
