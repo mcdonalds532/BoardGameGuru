@@ -16,3 +16,6 @@ frontend/out/
 # Data (contains verbatim excerpts from copyrighted rulebooks)
 backend/documents/*.pdf
 backend/pipeline/finetune/qa_pairs.jsonl
+
+# Downloaded model weights
+backend/pipeline/finetune/adapter/

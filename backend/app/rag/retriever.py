@@ -14,7 +14,7 @@ def embed_query(text: str) -> list[float]:
     return response.data[0].embedding
 
 
-def retrieve(query: str, game: str | None = None, top_k: int = 5) -> list[dict]:
+def retrieve(query: str, game: str | None = None, top_k: int = 10) -> list[dict]:
     index = _pinecone.Index(settings.pinecone_index_name)
     vector = embed_query(query)
 

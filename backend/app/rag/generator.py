@@ -20,9 +20,8 @@ def generate_answer(query: str, chunks: list[dict]) -> str:
         {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {query}"},
     ]
 
-    model = settings.finetuned_generation_model or settings.base_generation_model
     response = _together.chat.completions.create(
-        model=model,
+        model=settings.live_generation_model,
         messages=messages,
     )
     return response.choices[0].message.content

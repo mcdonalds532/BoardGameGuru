@@ -15,7 +15,7 @@ def submit_finetune_job(qa_pairs_path: str, suffix: str = "boardgameguru") -> st
     upload = _together.files.upload(file=qa_pairs_path, purpose="fine-tune")
     job = _together.fine_tuning.create(
         training_file=upload.id,
-        model=settings.base_generation_model,
+        model=settings.finetune_base_model,
         n_epochs=3,
         n_checkpoints=1,
         lora=True,

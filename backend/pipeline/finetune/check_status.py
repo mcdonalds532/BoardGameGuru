@@ -14,7 +14,7 @@ def check_status(job_id: str) -> None:
     print(f"status: {job.status}")
     if job.status == "completed":
         print(f"output model: {job.x_model_output_name}")
-        print("Set this as TOGETHER's finetuned_generation_model / FINETUNED_GENERATION_MODEL in backend/.env")
+        print(f"Download adapter with: python -m pipeline.finetune.download_adapter {job_id}")
     elif job.status == "error":
         print(job.model_dump())
 

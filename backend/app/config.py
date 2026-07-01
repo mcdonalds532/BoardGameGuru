@@ -10,8 +10,13 @@ class Settings(BaseSettings):
     pinecone_index_name: str = "boardgameguru"
     embedding_model: str = "text-embedding-3-small"
     qa_generation_model: str = "gpt-5.4-mini"
-    base_generation_model: str = "meta-llama/Llama-3.2-3B-Instruct"
-    finetuned_generation_model: str | None = None
+    # Serves the live /query endpoint. Confirmed servable via Together's shared
+    # serverless inference (no dedicated endpoint needed).
+    live_generation_model: str = "Qwen/Qwen2.5-7B-Instruct-Turbo"
+    # Fine-tuning target. Serving fine-tuned Together models requires a $6.49/hr
+    # dedicated endpoint, so the resulting adapter is downloaded and evaluated
+    # locally instead of swapped into live_generation_model.
+    finetune_base_model: str = "Qwen/Qwen2.5-3B-Instruct"
     cors_origins: list[str] = ["http://localhost:3000"]
 
 
