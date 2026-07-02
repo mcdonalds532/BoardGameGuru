@@ -2,6 +2,7 @@ fastapi>=0.115
 uvicorn[standard]>=0.34
 python-dotenv>=1.0
 openai>=1.59
+httpx>=0.27
 together>=1.4
 pinecone>=5.4
 pdfplumber>=0.11

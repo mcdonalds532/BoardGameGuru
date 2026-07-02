@@ -17,7 +17,13 @@ class Settings(BaseSettings):
     # dedicated endpoint, so the resulting adapter is downloaded and evaluated
     # locally instead of swapped into live_generation_model.
     finetune_base_model: str = "Qwen/Qwen2.5-3B-Instruct"
-    cors_origins: list[str] = ["http://localhost:3000"]
+    # Comma-separated in the environment (e.g. Railway dashboard), e.g.
+    # "http://localhost:3000,https://boardgameguru.vercel.app"
+    cors_origins_raw: str = "http://localhost:3000"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins_raw.split(",") if origin.strip()]
 
 
 settings = Settings()
