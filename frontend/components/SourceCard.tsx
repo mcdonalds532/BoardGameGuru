@@ -1,9 +1,9 @@
 import { Source } from "@/lib/api";
+import { makeSnippet } from "@/lib/textQuality";
 import { GameBadge } from "./GameBadge";
 
 export function SourceCard({ source }: { source: Source }) {
-  const snippet =
-    source.text.length > 180 ? `${source.text.slice(0, 180).trim()}…` : source.text;
+  const snippet = makeSnippet(source.text);
 
   return (
     <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">

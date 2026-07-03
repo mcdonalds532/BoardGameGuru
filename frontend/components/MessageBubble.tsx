@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Source } from "@/lib/api";
+import { looksGarbled, makeSnippet } from "@/lib/textQuality";
 import { SourceCard } from "./SourceCard";
 
 export interface Message {
@@ -13,7 +15,10 @@ const MAX_DISPLAYED_SOURCES = 4;
 
 export function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === "user";
-  const displayedSources = message.sources?.slice(0, MAX_DISPLAYED_SOURCES);
+  const [showSources, setShowSources] = useState(false);
+  const displayedSources = message.sources
+    ?.filter((source) => !looksGarbled(makeSnippet(source.text)))
+    .slice(0, MAX_DISPLAYED_SOURCES);
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
@@ -28,11 +33,22 @@ export function MessageBubble({ message }: { message: Message }) {
           {message.content}
         </div>
         {displayedSources && displayedSources.length > 0 && (
-          <div className="mt-2 grid gap-2 sm:grid-cols-2">
-            {displayedSources.map((source, i) => (
-              <SourceCard key={`${source.source_file}-${i}`} source={source} />
-            ))}
-          </div>
+          <>
+            <button
+              type="button"
+              onClick={() => setShowSources((v) => !v)}
+              className="mt-2 text-xs font-medium text-zinc-500 hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
+            >
+              {showSources ? "Hide sources" : "View sources"}
+            </button>
+            {showSources && (
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {displayedSources.map((source, i) => (
+                  <SourceCard key={`${source.source_file}-${i}`} source={source} />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

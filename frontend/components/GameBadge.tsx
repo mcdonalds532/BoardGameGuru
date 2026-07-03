@@ -21,7 +21,7 @@ export function GameBadge({ game, selected, onClick }: GameBadgeProps) {
       onClick={onClick}
       className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition ${colorClasses} ${
         interactive ? "cursor-pointer hover:opacity-80" : ""
-      } ${selected ? "ring-2 ring-offset-1 ring-zinc-400" : ""}`}
+      } ${selected ? "ring-2 ring-offset-2 ring-indigo-600 ring-offset-zinc-50 dark:ring-offset-indigo-950" : ""}`}
     >
       {game}
     </span>
