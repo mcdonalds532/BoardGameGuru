@@ -1,9 +1,7 @@
 # BoardGameGuru
 
 A RAG-based chatbot that answers natural-language questions about board game rules, grounded in official rulebook text with source citations.
-
 **Live demo:** https://board-game-guru.vercel.app
-**Backend API:** https://boardgameguru-production-c66b.up.railway.app
 
 ## Stack
 Python, FastAPI, OpenAI API (embeddings), Together AI (serverless Qwen2.5-7B-Instruct for live generation; LoRA fine-tuned Qwen2.5-3B-Instruct evaluated locally), Pinecone, Next.js, Tailwind CSS
