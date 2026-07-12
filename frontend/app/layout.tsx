@@ -13,8 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BoardGameGuru",
-  description: "AI rules assistant for board games, grounded in official rulebooks.",
+  title: "BoardGameGuru — AI board game rules assistant",
+  description:
+    "Ask rules questions about Catan, Ticket to Ride, Pandemic, Carcassonne, and Codenames. Every answer is grounded in the official rulebooks, with sources cited.",
+  openGraph: {
+    title: "BoardGameGuru — AI board game rules assistant",
+    description:
+      "Ask rules questions about five classic board games. Every answer is grounded in the official rulebooks, with sources cited.",
+    url: "https://board-game-guru.vercel.app",
+    siteName: "BoardGameGuru",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

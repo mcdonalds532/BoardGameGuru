@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { Source } from "@/lib/api";
 import { looksGarbled, makeSnippet } from "@/lib/textQuality";
 import { SourceCard } from "./SourceCard";
@@ -27,10 +28,10 @@ export function MessageBubble({ message }: { message: Message }) {
           className={`rounded-2xl px-4 py-2 text-sm leading-relaxed ${
             isUser
               ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-              : "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+              : "answer-md bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
           }`}
         >
-          {message.content}
+          {isUser ? message.content : <ReactMarkdown>{message.content}</ReactMarkdown>}
         </div>
         {displayedSources && displayedSources.length > 0 && (
           <>

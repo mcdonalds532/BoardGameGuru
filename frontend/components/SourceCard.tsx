@@ -6,7 +6,7 @@ export function SourceCard({ source }: { source: Source }) {
   const snippet = makeSnippet(source.text);
 
   return (
-    <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-700 dark:bg-zinc-800/60">
       <div className="mb-1 flex items-center justify-between">
         <GameBadge game={source.game} />
         <span className="text-xs text-zinc-400">{source.source_file}</span>
