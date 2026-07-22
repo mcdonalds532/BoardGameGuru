@@ -11,7 +11,14 @@ frontend/out/
 
 # Editor / OS
 .DS_Store
+
+# Personal interview prep notes (not part of the project)
+INTERVIEW_PREP.md
+
+# AI-assistant working notes (not part of the project)
 .claude/settings.local.json
+frontend/AGENTS.md
+frontend/CLAUDE.md
 
 # Data (contains verbatim excerpts from copyrighted rulebooks)
 backend/documents/*.pdf

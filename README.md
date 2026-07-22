@@ -6,11 +6,11 @@ A RAG chatbot that answers natural-language questions about board game rules, gr
 
 ![BoardGameGuru answering a Pandemic rules question, with the exact rulebook passages cited below the answer](docs/screenshot.png)
 
-Covers five games: Catan, Ticket to Ride, Pandemic, Carcassonne, and Codenames.
+Covers five games: Catan, Ticket to Ride, Pandemic, Carcassonne, and Codenames — 134 chunks of rulebook text in total.
 
 ## Highlights
 
-- **End-to-end RAG pipeline** — rulebook PDFs are extracted with pdfplumber, split into ~400-token chunks with 80-token overlap, embedded with OpenAI `text-embedding-3-small`, and stored in Pinecone. At query time the top 10 chunks ground a Qwen2.5-7B answer, and the UI shows the actual passages used.
+- **End-to-end RAG pipeline** — rulebook PDFs are extracted with pdfplumber, split into ~400-token chunks with 80-token overlap, embedded with OpenAI `text-embedding-3-small`, and stored in Pinecone. At query time the top 10 chunks ground a Qwen2.5-7B answer, and the UI cites the best 4 of them so the reader can check the answer against the rulebook.
 - **Fine-tuning with a measured result** — Qwen2.5-3B-Instruct was LoRA fine-tuned (Together AI) on 76 synthetic QA pairs generated from the rulebooks. On a 20-question held-out eval graded by an LLM judge, the fine-tuned model scored **65% correct vs 50% for the base model** under identical conditions.
 - **Cost-driven deployment tradeoff** — Together AI requires a $6.49/hr dedicated endpoint to serve fine-tuned models, which isn't viable for an always-on demo. Live traffic is served by a confirmed-serverless base model, while the fine-tuned adapter was downloaded and evaluated offline. The eval quantifies exactly what that tradeoff costs in answer quality.
 - **Corpus-validated display filtering** — some rulebook PDFs extract with scrambled glyph order (reversed words, interleaved map labels). The source-citation filter's heuristics were validated against every chunk in the corpus, not spot-checked.
@@ -62,15 +62,32 @@ The fine-tuned model stays on-topic where the base model drifts or hedges. Both 
 
 ## Local Development
 
+> **Note on the corpus:** the rulebook PDFs and every derived artifact containing
+> verbatim rulebook text (chunk cache, QA pairs, per-question grading output) are
+> gitignored — they're copyrighted. A fresh clone runs, but you supply your own
+> PDFs in `backend/documents/` and build your own index. Everything that can be
+> published without redistributing that text is committed, including the eval
+> summary and all pipeline code.
+
 ### Backend
 ```
 cd backend
 python -m venv venv
 source venv/Scripts/activate  # Windows Git Bash
 pip install -r requirements.txt
-cp ../.env.example .env  # fill in API keys
+cp ../.env.example .env  # fill in OpenAI / Pinecone / Together keys
 uvicorn app.main:app --reload
 ```
+
+### Building the index
+With PDFs in `backend/documents/`, this extracts → chunks → embeds → upserts in
+one pass, creating the Pinecone index (1536-dim, cosine) if it doesn't exist yet:
+```
+cd backend
+python -m pipeline.embed
+```
+Game names are derived from filenames, so `ticket_to_ride.pdf` becomes the
+`Ticket To Ride` filter value.
 
 ### Frontend
 ```
@@ -107,7 +124,47 @@ python eval_adapter.py  # writes eval_results.md
 
 ## Project Structure
 
-See `planning.md` for the full roadmap and architecture notes.
+```
+backend/
+  app/
+    config.py            Pydantic settings (models, keys, CORS)
+    main.py              FastAPI app + CORS
+    routes/query.py      POST /query — question + optional game filter
+    rag/retriever.py     Embed query → Pinecone top-k
+    rag/generator.py     Grounded answer from retrieved chunks
+  pipeline/
+    ingest.py            pdfplumber text extraction
+    chunk.py             400-token chunks, 80-token overlap
+    embed.py             Embed + upsert; entrypoint for the whole pipeline
+    finetune/            QA generation, LoRA job submission, adapter eval
+  eval/
+    test_queries.json    20 held-out questions
+    grade_answers.py     LLM-judge grading of base vs fine-tuned
+    run_eval.py          Smoke eval against a live /query endpoint
+frontend/                Next.js chat UI (see frontend/README.md)
+nixpacks.toml            Railway build config (see deployment notes)
+```
+
+`planning.md` has the full phase-by-phase roadmap and the decision log behind the
+tradeoffs described above.
+
+## Known Limitations
+
+Honest about what this doesn't do:
+
+- **No reranking.** Retrieval is a single dense-vector pass. `top_k` was raised
+  from 5 to 10 after a test question's relevant chunk ranked 14th — a reranker is
+  the right fix, `top_k` was the cheap one.
+- **Cross-game bleed-through.** With no `game` filter passed, retrieval can
+  surface a chunk from the wrong rulebook. The UI's game badges avoid this in
+  practice; the API doesn't enforce it.
+- **PDF extraction quality varies.** Several rulebooks have font-encoding quirks
+  that scramble character order. This affects citation display (filtered by
+  `frontend/lib/textQuality.ts`) and put 4 unusable QA pairs into the fine-tuning
+  set, which were removed by manual review.
+- **The eval is small.** 20 questions, one LLM judge, single-chunk context. It's
+  enough to show a directional difference between base and fine-tuned, not enough
+  for a confidence interval.
 
 ## License
 
